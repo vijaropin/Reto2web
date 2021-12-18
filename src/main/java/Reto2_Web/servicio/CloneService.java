@@ -25,7 +25,7 @@ public class CloneService {
         return clotheRepository.getAll();
     }
 
-   public Optional<Clone> getClothe(Integer id) {
+   public Optional<Clone> getClothe(int id) {
         return clotheRepository.getClothe(id);
     }
 

@@ -15,10 +15,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author Usuario
  */
 
-    @Document(collection = "clone")
+    
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
+    @Document(collection = "clone")
     public class Clone {
     @Id
     private Integer id;
