@@ -6,6 +6,8 @@ package Reto2_Web.controlador;
 import Reto2_Web.servicio.UserService;
 import Reto2_Web.modelo.User;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -36,7 +38,11 @@ public class UserController {
     public List<User> getAll() {
         return userService.getAll();
     }
-      @PostMapping("/new")
+
+    @GetMapping("/{user}")
+    public Optional<User> getUser(@PathVariable("user") Integer user) {return userService.getUser(user);}
+
+    @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
     public User create(@RequestBody User user) {
         return userService.create(user);
@@ -47,11 +53,13 @@ public class UserController {
     public User update(@RequestBody User user) {
         return userService.update(user);
     }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("id") int id) {
         return userService.delete(id);
     }
+
     @GetMapping("/{email}/{password}")
     public User authenticateUser(@PathVariable("email") String email, @PathVariable("password") String password) {
         return userService.authenticateUser(email, password);
