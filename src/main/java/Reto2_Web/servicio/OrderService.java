@@ -6,35 +6,43 @@ package Reto2_Web.servicio;
 
 import Reto2_Web.modelo.Order;
 import Reto2_Web.repositorio.OrderRepositorio;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 /**
- *
  * @author Usuario
  */
 @Service
 public class OrderService {
     @Autowired
     private OrderRepositorio orderRepositorio;
-    
-    public List<Order> getAll(){
+
+    public List<Order> getAll() {
         return orderRepositorio.getAll();
     }
-    public Optional<Order> getOrder(Integer id){
+
+    public Optional<Order> getOrder(Integer id) {
         return orderRepositorio.getOrder(id);
     }
-    public Order save(Order order){
-        if (order.getId() == null){
+
+    public Order save(Order order) {
+        if (order.getId() == null) {
             return order;
         } else {
             return orderRepositorio.create(order);
         }
     }
-    public Order update(Order order){
-        if (order.getId() != null){
+
+    public Order update(Order order) {
+        if (order.getId() != null) {
             Optional<Order> dbOrder = orderRepositorio.getOrder(order.getId());
             if (!dbOrder.isEmpty()) {
                 if (order.getId() != null) {
@@ -70,15 +78,25 @@ public class OrderService {
         }
     }
 
-    public boolean delete(int id){
+    public boolean delete(int id) {
         return getOrder(id).map(order -> {
             orderRepositorio.delete(order);
             return true;
         }).orElse(false);
     }
 
-    public List<Order> getOrderByZone(String zone){
+    public List<Order> getOrderByZone(String zone) {
         return orderRepositorio.getOrderByZone(zone);
     }
-   
+
+    public List<Order> getBySalesManId(Integer id) {
+        return orderRepositorio.getBySalesManId(id);
+    }
+
+    public List<Order> getBySalesManIdAndStatus(Integer id, String status) {
+        return orderRepositorio.getBySalesManIdAndStatus(id, status);
+    }
+    public List<Order> getByRegisterDayAndSalesManId(String registerDay, Integer id)  {
+       return orderRepositorio.getByRegisterDayAndSalesManId(registerDay, id);
+    }
 }
