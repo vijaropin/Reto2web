@@ -91,6 +91,13 @@ public class CloneService {
         }).orElse(false);
         return aBoolean;
     }
-    
+
+    public List<Clone> getByPrice(double price){
+        return clotheRepository.getByPrice(price);
+    }
+
+    public List<Clone> getByDescriptionContains(String description){
+        return clotheRepository.getByDescriptionContains(description);
+    }
     
 }

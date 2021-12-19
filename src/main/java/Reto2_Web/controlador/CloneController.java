@@ -6,8 +6,10 @@ package Reto2_Web.controlador;
 
 import Reto2_Web.servicio.CloneService;
 import Reto2_Web.modelo.Clone;
+
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,21 +24,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
  * @author USUARIO
  */
 @RestController
 @RequestMapping("/api/clone")
 @CrossOrigin("*")
 public class CloneController {
-       @Autowired
+    @Autowired
     private CloneService accessoryService;
-       
-     @GetMapping("/all")
+
+    @GetMapping("/all")
     public List<Clone> getAll() {
         return accessoryService.getAll();
     }
-    
+
     @GetMapping("/{id}")
     public Optional<Clone> getClothe(@PathVariable("id") Integer id) {
         return accessoryService.getClothe(id);
@@ -47,7 +48,7 @@ public class CloneController {
     public Clone create(@RequestBody Clone gadget) {
         return accessoryService.create(gadget);
     }
-    
+
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
     public Clone update(@RequestBody Clone gadget) {
@@ -58,6 +59,16 @@ public class CloneController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("id") Integer id) {
         return accessoryService.delete(id);
-    } 
-    
+    }
+
+    @GetMapping("/price/{price}")
+    public List<Clone> getByPrice(@PathVariable("price") double price) {
+        return accessoryService.getByPrice(price);
+    }
+
+    @GetMapping("/description/{description}")
+    public List<Clone> getByDescriptionContains(@PathVariable("description") String description) {
+        return accessoryService.getByDescriptionContains(description);
+    }
+
 }

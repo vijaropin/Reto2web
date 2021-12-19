@@ -7,10 +7,14 @@ package Reto2_Web.interfaces;
 import Reto2_Web.modelo.Clone;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.List;
+
 /**
  *
  * @author Usuario
  */
 public interface CloneInterface extends MongoRepository<Clone, Integer>{
+      public List<Clone> findByPrice(double price);
+      public List<Clone> findByDescriptionContainsIgnoreCase(String description);
     
 }
